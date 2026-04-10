@@ -2,63 +2,74 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
+use App\Models\Project;
+use App\Models\Task;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Project $project)
     {
-        //
+        $this->authorize('view', $project);
+
+        $tasks = $project->tasks()
+            ->when(request('status'), fn($q, $status) => $q->where('status', $status))
+            ->latest()
+            ->get();
+
+        return view('tasks.index', compact('project', 'tasks'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(Project $project)
     {
-        //
+        $this->authorize('view', $project);
+
+        return view('tasks.create', compact('project'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request, Project $project)
     {
-        //
+        $this->authorize('view', $project);
+
+        $project->tasks()->create($request->validated());
+
+        return redirect()->route('projects.show', $project)
+            ->with('success', 'Task created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Task $task)
     {
-        //
+        $this->authorize('view', $task);
+
+        return view('tasks.show', compact('task'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Task $task)
     {
-        //
+        $this->authorize('update', $task);
+
+        return view('tasks.edit', compact('task'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+        $this->authorize('update', $task);
+
+        $task->update($request->validated());
+
+        return redirect()->route('projects.show', $task->project)
+            ->with('success', 'Task updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Task $task)
     {
-        //
+        $this->authorize('delete', $task);
+
+        $project = $task->project;
+        $task->delete();
+
+        return redirect()->route('projects.show', $project)
+            ->with('success', 'Task deleted successfully.');
     }
 }
