@@ -1,6 +1,6 @@
 # 📋 Task Manager
 
-A simple web-based Task Management System built with Laravel 13, MySQL, and Tailwind CSS. Built as part of a technical assessment for Telediant Engineering.
+A simple web-based Task Management System built with Laravel 13, MySQL, and Tailwind CSS.
 
 ## Tech Stack
 
