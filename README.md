@@ -14,7 +14,6 @@ A simple web-based Task Management System built with Laravel 13, MySQL, and Tail
 
 - **🌓 Dynamic Dual-Theme UI:** Persistent Light & Dark mode seamlessly integrated universally via Tailwind CSS and `localStorage`.
 - **🔐 Modern Form Authentication:** Completely redesigned "Split-Screen" authentication portal with sleek glassmorphism panels.
-- 📅 **Advanced Date Selection:** Integrated a customized **Flatpickr** calendar component, overriding generic date pickers for perfectly theme-aligned UX.
 - 📁 **Project Management** (create, edit, delete)
 - ✅ **Task Management** (create, edit, delete, filter by status)
 - 📊 **Dashboard** with project and task statistics seamlessly matched to the current styling.
