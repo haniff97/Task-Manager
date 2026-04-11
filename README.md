@@ -80,13 +80,39 @@ php artisan serve
 
 Visit `http://localhost:8000`
 
-## Database Structure
+## Database Schema
 
-| Table    | Key Fields                                      |
-|----------|-------------------------------------------------|
-| users    | id, name, email, password                       |
-| projects | id, user_id, name, created_at                   |
-| tasks    | id, project_id, title, description, status, due_date |
+**users**
+| Column | Type | Notes |
+|---|---|---|
+| id | bigint | Primary key, auto increment |
+| name | varchar(255) | Required |
+| email | varchar(255) | Required, unique |
+| email_verified_at | timestamp | Nullable |
+| password | varchar(255) | Bcrypt hashed |
+| created_at | timestamp | Auto generated |
+| updated_at | timestamp | Auto generated |
+
+**projects**
+| Column | Type | Notes |
+|---|---|---|
+| id | bigint | Primary key, auto increment |
+| user_id | bigint | Foreign key → users.id |
+| name | varchar(255) | Required |
+| created_at | timestamp | Auto generated |
+| updated_at | timestamp | Auto generated |
+
+**tasks**
+| Column | Type | Notes |
+|---|---|---|
+| id | bigint | Primary key, auto increment |
+| project_id | bigint | Foreign key → projects.id |
+| title | varchar(255) | Required |
+| description | text | Nullable |
+| status | enum | todo, in_progress, done |
+| due_date | date | Nullable |
+| created_at | timestamp | Auto generated |
+| updated_at | timestamp | Auto generated |
 
 ## Design User Interface Decisions
 
