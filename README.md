@@ -12,12 +12,14 @@ A simple web-based Task Management System built with Laravel 13, MySQL, and Tail
 
 ## Features
 
-- 🔐 User authentication (register, login, logout)
-- 📁 Project management (create, edit, delete)
-- ✅ Task management (create, edit, delete, filter by status)
-- 📊 Dashboard with project and task statistics
-- 🔒 Authorization — users can only access their own data
-- ✔️ Server-side validation with proper error messages
+- **🌓 Dynamic Dual-Theme UI:** Persistent Light & Dark mode seamlessly integrated universally via Tailwind CSS and `localStorage`.
+- **🔐 Modern Form Authentication:** Completely redesigned "Split-Screen" authentication portal with sleek glassmorphism panels.
+- 📅 **Advanced Date Selection:** Integrated a customized **Flatpickr** calendar component, overriding generic native OS date pickers for perfectly theme-aligned UX.
+- 📁 **Project Management** (create, edit, delete)
+- ✅ **Task Management** (create, edit, delete, filter by status)
+- 📊 **Dashboard** with project and task statistics seamlessly matched to the current styling.
+- 🔒 **Authorization** — users can only access their own data
+- ✔️ **Server-side validation** with proper error messages
 
 ## Requirements
 
@@ -55,7 +57,7 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=task_manager
 DB_USERNAME=root
-DB_PASSWORD=your_mysql_password
+DB_PASSWORD=your_mysql_password <--- change password here
 ```
 
 ### 5. Create the database
@@ -87,8 +89,10 @@ Visit `http://localhost:8000`
 | projects | id, user_id, name, created_at                   |
 | tasks    | id, project_id, title, description, status, due_date |
 
-## Design Decisions
+## Design User Interface Decisions
 
+- **Tailwind UI Control** — Explicitly bypassed generic system themes by enforcing CSS variables like `color-scheme: dark`. This ensures all native components—like dropdowns, checkboxes, and scrollbars—obey the app's dark mode toggle rather than user browser biases.
+- **Mobile UI Safety** — Hardcoded Flatpickr configuration (`disableMobile: true`) to actively prevent iOS constraints from hijacking the UI with blurred OS-level pickers.
 - **Shallow nested routes** — `projects.tasks` uses `->shallow()` for clean URLs
 - **Form Request classes** — validation separated from controllers
 - **Policies** — authorization handled via `ProjectPolicy` and `TaskPolicy`, not manual if-checks
